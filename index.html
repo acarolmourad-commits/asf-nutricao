@@ -17,6 +17,7 @@ nav a:hover{background:var(--rosa);color:#fff}
 main{max-width:760px;margin:1.5rem auto;padding:0 1rem}
 .card{background:#fff;border-radius:16px;padding:1.4rem;box-shadow:0 4px 16px #7b2ff720;margin-bottom:1.2rem}
 .card h2{color:var(--roxo);margin-bottom:.6rem;font-size:1.2rem}
+.card p{margin-bottom:.5rem}
 button{background:linear-gradient(90deg,var(--rosa),var(--roxo));color:#fff;border:none;padding:.6rem 1.2rem;border-radius:24px;font-size:1rem;cursor:pointer}
 button:hover{opacity:.85}
 input,select,textarea{padding:.5rem;border:1px solid #ddd;border-radius:10px;width:100%;margin:.3rem 0;font-size:1rem}
@@ -53,7 +54,21 @@ footer{text-align:center;padding:2rem;font-size:.8rem;color:#888}
 <label>Seu peso (kg)</label><input id="p" type="number" placeholder="60">
 <label>Horas de surf hoje</label><input id="h" type="number" placeholder="2">
 <button onclick="calc()">Calcular</button><h3 id="r" style="margin-top:.6rem;color:var(--mar)"></h3></div>
-<div class="card"><h2>🍌 Pré e Pós-Surf</h2><p><b>Pré (1h antes):</b> banana, aveia, pão integral com mel.</p><p><b>Pós:</b> proteína + carboidrato em até 45min — vitamina de frutas, ovos, açaí sem xarope.</p><p>Mais treinos em <a href='https://acarolmourad-commits.github.io/asf-treino/'>ASF Treino</a>.</p></div>
+<div class="card"><h2>🍌 Pré-Surf — antes de entrar no mar</h2>
+<p><b>2–3h antes:</b> refeição completa e leve — arroz integral, frango ou ovos, batata-doce, salada. Carboidrato complexo + proteína magra.</p>
+<p><b>1h antes:</b> lanche de digestão rápida — banana, aveia com mel, pão integral com geleia, tapioca com queijo branco.</p>
+<p><b>30min antes:</b> só algo bem leve — 1 fruta (banana, maçã) ou 1 tâmara. Evite volume grande.</p>
+<p><b>Evite:</b> frituras, feijoada, laticínios pesados, excesso de fibra e refrigerante logo antes do surf — pesam no estômago dentro d'água.</p>
+<p><b>Hidratação pré:</b> 400–600ml de água nas 2h anteriores. Em dias quentes, adicione uma pitada de sal ou água de coco.</p>
+<p><b>Energia extra:</b> café com moderação 30–45min antes pode melhorar foco e resistência na remada.</p></div>
+<div class="card"><h2>🥤 Pós-Surf — recuperação</h2>
+<p><b>Janela de 45min:</b> combine proteína + carboidrato para recuperar o músculo e repor o glicogênio.</p>
+<p><b>Ideias rápidas:</b> vitamina de frutas com leite ou iogurte, ovos mexidos com pão, açaí puro (sem xarope de guaraná) com granola e banana.</p>
+<p><b>Refeição completa (1–2h depois):</b> arroz, feijão, proteína (peixe, frango, ovos) e legumes — o clássico PF é perfeito.</p>
+<p><b>Reidratação:</b> reponha 1,25–1,5L de água por litro de suor perdido. Água de coco e sucos naturais ajudam com eletrólitos.</p>
+<p><b>Sinais de alerta:</b> dor de cabeça, cãibras e urina escura indicam desidratação — beba água e consuma algo salgado.</p>
+<p><b>Anti-inflamatórios naturais:</b> cúrcuma, gengibre, frutas vermelhas e peixes ajudam na recuperação muscular entre sessões.</p></div>
+<div class="card"><h2>🌟 Dica da Semana</h2><p id="dica-semana">Carregando…</p><p style="font-size:.8rem;color:#888">Nova dica toda semana, automaticamente. ✨</p><p>Mais treinos em <a href='https://acarolmourad-commits.github.io/asf-treino/'>ASF Treino</a>.</p></div>
 <div class="card"><h2>🌐 Ecossistema ASF</h2><p>Este app faz parte da constelação ASF — Associação de Surf Feminino. Ganhe XP aqui e veja seu progresso no <a href="https://acarolmourad-commits.github.io/asf-ranking/">ASF Ranking</a>. App principal: <a href="https://acarolmourad-commits.github.io/asf-app/">ASF App</a>.</p></div>
 </main>
 <div class="xp">⭐ XP: <span id="xp">0</span></div>
@@ -63,6 +78,23 @@ const XP=()=>parseInt(localStorage.getItem('asf_xp')||'0');
 function addXP(n){localStorage.setItem('asf_xp',XP()+n);document.getElementById('xp').textContent=XP();}
 document.getElementById('xp').textContent=XP();
 function calc(){const p=parseFloat(document.getElementById('p').value),h=parseFloat(document.getElementById('h').value)||0;if(!p)return;const l=(p*0.035+h*0.5).toFixed(1);document.getElementById('r').textContent=`Meta de hoje: ~${l} litros de água 💧`;addXP(5);}
+</script>
+<script>
+const DICAS=[
+"🥑 Gordura boa também é combustível: abacate, castanhas e azeite dão energia estável para sessões longas.",
+"🍌 A banana é o snack oficial do surf: potássio contra cãibras + energia rápida. Leve uma na mochila!",
+"🧂 Suou muito? Reponha sódio: água de coco + pitada de sal funciona como isotônico natural.",
+"🥚 Ovos no pós-treino: proteína completa e barata. 2–3 ovos + pão integral = recuperação garantida.",
+"🍠 Batata-doce no pré: carboidrato de digestão lenta que sustenta a remada por horas.",
+"🫐 Frutas vermelhas no pós: antioxidantes que reduzem a inflamação muscular depois do mar.",
+"⏰ Nunca surfe de estômago cheio nem vazio: a janela ideal é 60–90min após um lanche leve.",
+"🍫 Chocolate 70% com moderação no pós: magnésio ajuda a relaxar a musculatura.",
+"🥤 Smoothie pós-surf em 2min: banana + aveia + leite + mel. Bateu, tomou, recuperou.",
+"🐟 Peixe 2x por semana: ômega-3 protege as articulações de quem rema muito.",
+"🧊 Cãibra no mar? Na volta: água, banana e algo salgado. Potássio + sódio + hidratação.",
+"☕ Café antes do surf melhora o foco, mas conta como diurético: compense com um copo extra de água."
+];
+(function(){const now=new Date();const start=new Date(now.getFullYear(),0,1);const week=Math.floor((now-start)/6048e5);const el=document.getElementById('dica-semana');if(el)el.innerHTML='<b>'+DICAS[week%DICAS.length]+'</b>';addXP(3);})();
 </script>
 
 <!-- ASF Ecossistema Nav v2 (rede completa, 21 sites) -->
